@@ -16,8 +16,7 @@ Plug 'ryanoasis/vim-devicons' " Developer icons
 Plug 'preservim/tagbar', {'on': 'TagbarToggle'} " Code navigation
 Plug 'junegunn/fzf.vim' " Fuzzy Finder, Needs Silversearcher-ag for :Ag
 Plug 'junegunn/fzf'
-Plug 'navarasu/onedark.nvim' " Onedark theme
-Plug 'morhetz/gruvbox' " Gruvbox theme
+Plug 'projekt0n/github-nvim-theme' " GitHub Dark theme
 Plug 'vim-airline/vim-airline-themes' " Airline themes
 Plug 'mbbill/undotree'
 Plug 'neoclide/coc.nvim', {'branch': 'release'} " IntelliSense
@@ -26,7 +25,8 @@ Plug 'tpope/vim-fugitive' " Git integration
 Plug 'matze/vim-move' " Easy movement
 Plug 'voldikss/vim-floaterm'
 Plug 'vim-python/python-syntax'
-Plug 'alvan/vim-closetag'
+Plug 'alvan/vim-closetag' " Auto close HTML/JSX tags
+Plug 'jiangmiao/auto-pairs' " Auto close brackets and quotes
 
 " JavaScript and JSX/React support
 Plug 'pangloss/vim-javascript' " Enhanced JavaScript syntax highlighting
@@ -46,10 +46,11 @@ set smarttab
 set encoding=UTF-8
 set visualbell
 set scrolloff=5
+syntax on
 
 " Colors and Themes
-colorscheme onedark
-let g:airline_theme='gruvbox'
+colorscheme github_dark_default " GitHub dark theme for overall UI
+let g:airline_theme = 'onedark'  " Airline status bar theme
 
 " NERDTree Configuration
 let g:NERDTreeDirArrowExpandable="+"
@@ -103,10 +104,17 @@ autocmd BufWritePre *.js,*.jsx,*.ts,*.tsx :CocCommand prettier.formatFile
 " Use Enter to confirm a suggestion from the completion menu
 inoremap <silent><expr> <CR> pumvisible() ? coc#pum#confirm() : "\<CR>"
 
+" Auto-quotations and brackets (AutoPairs handles this)
+let g:AutoPairsShortcutBackInsert = '<M-b>' " Meta+B inserts unmatched pair backward
+
 " Tab Behavior in Insert Mode
 inoremap <expr> <Tab> pumvisible() ? "\<C-N>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-P>" : "\<C-H>"
 
 " Highlighting for JavaScript
 autocmd BufNewFile,BufRead *.js,*.jsx set filetype=javascript.jsx
+
+" Cool Feature: Open terminal in split mode
+nnoremap <leader>tt :split term://bash<CR>
+tnoremap <Esc> <C-\><C-n>
 
